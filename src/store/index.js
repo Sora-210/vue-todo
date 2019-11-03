@@ -5,8 +5,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state : {
-        todoList: [
-            "aaaaaaa"
-        ]
+        todoList: [],
+        // clearList: []
+    },
+    mutations: {
+        clear(state, index) {
+            // state.clearList.push(state.todoList.content)
+            state.todoList.splice(index, 1);
+        },
+        remove(state, index) {
+            state.todoList.splice(index, 1);
+        }
     }
 })

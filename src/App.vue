@@ -10,17 +10,21 @@
       <button @click="addTodo">追加</button>
     </div>
     <hr />
-    <ul>
-      <transition-group mode="out-in" name="todo">
-        <TodoContent
-          v-for="(todo, index) in todoList"
-          :content="todo.content"
-          :key="todo.id"
-          @clear="clear(index)"
-          @remove="remove(index)"
-        ></TodoContent>
-      </transition-group>
-    </ul>
+    <div id="todo-item-list">
+      <h2>やることリスト</h2>
+      <ul>
+        <transition-group mode="out-in" name="todo">
+          <TodoContent
+            v-for="(todo, index) in this.$store.state.todoList"
+            :content="todo.content"
+            :key="todo.id"
+            @clear="$store.commit('clear',index)"
+            @remove="$store.commit('remove',index)"
+          ></TodoContent>
+        </transition-group>
+      </ul>
+    </div>
+    
   </div>
 </template>
 
@@ -42,20 +46,12 @@ export default {
   methods: {
     addTodo() {
       if (this.todo !== "") {
-        this.todoList.push({ content: this.todo, id: this.id });
+        this.$store.state.todoList.push({ content: this.todo, id: this.id });
         this.todo = "";
         this.id += 1;
       } else {
         alert("やることを入力してください");
       }
-    },
-    clear(index) {
-      // alert(index)
-      this.todoList.splice(index, 1);
-    },
-    remove(index) {
-      // alert(index)
-      this.todoList.splice(index, 1);
     }
   }
 };
@@ -79,6 +75,10 @@ header h1 {
   font-size: 25px;
   margin: 0;
   line-height: 40px;
+}
+
+h2 {
+  font-size: 17px;
 }
 
 /* transition */
