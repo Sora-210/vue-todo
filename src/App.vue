@@ -13,14 +13,27 @@
     <div id="todo-item-list">
       <h2>やることリスト</h2>
       <ul>
-        <transition-group mode="out-in" name="todo">
+        <transition-group mode="out-in" name="fade">
           <TodoContent
             v-for="(todo, index) in this.$store.state.todoList"
             :content="todo.content"
             :key="todo.id"
-            @clear="$store.commit('clear',index)"
-            @remove="$store.commit('remove',index)"
+            @clear="$store.commit('clear', index)"
+            @remove="$store.commit('remove', index)"
           ></TodoContent>
+        </transition-group>
+      </ul>
+    </div>
+    <hr>
+    <div id="clear-item-list">
+      <h2>できたことリスト</h2>
+      <ul>
+        <transition-group mode="out-in" name="fade">
+          <ClearContent
+            v-for="(todo, index) in this.$store.state.clearList"
+            :content="todo"
+            :key="index"
+          ></ClearContent>
         </transition-group>
       </ul>
     </div>
@@ -30,11 +43,13 @@
 
 <script>
 import TodoContent from "./components/TodoContent";
+import ClearContent from "./components/ClearContent.vue";
 
 export default {
   name: "app",
   components: {
-    TodoContent
+    TodoContent,
+    ClearContent
   },
   data() {
     return {
@@ -82,23 +97,23 @@ h2 {
 }
 
 /* transition */
-.todo-enter {
+.fade-enter {
   opacity: 0;
 }
-.todo-enter-active {
+.fade-enter-active {
   transition: opacity 0.3s;
 }
-.todo-enter-to {
+.fade-enter-to {
   opacity: 1;
 }
-.todo-leave {
+.fade-leave {
   opacity: 1;
   height: 60px;
 }
-.todo-leave-active {
+.fade-leave-active {
   transition: opacity 0.3s;
 }
-.todo-leave-to {
+.fade-leave-to {
   opacity: 0;
 }
 /* transition-end */
