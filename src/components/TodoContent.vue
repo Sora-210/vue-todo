@@ -1,10 +1,10 @@
 <template>
-    <div class="item">
+    <li class="item">
         <span>{{ content }}</span>
         <div class="button">
             <span class="clear" @click="$emit('clear')">〇</span><span class="remove" @click="$emit('remove')">✕</span>
         </div>
-    </div>
+    </li>
 </template>
 
 <script>
@@ -23,6 +23,7 @@ export default {
     border-bottom: solid 1px rgb(138, 137, 137);
     margin: 5px auto;
     clear: both;
+    list-style:none;
 }
 span {
     float:left;
